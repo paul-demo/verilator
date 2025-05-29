@@ -1734,6 +1734,8 @@ class VlTest:
                     try:
                         data = os.read(fd, 1)
                         self._run_output(data, logfh, tee)
+                        if not data:
+                            break
                     except OSError:
                         break
 
