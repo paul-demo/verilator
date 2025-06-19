@@ -2209,18 +2209,11 @@ class WidthVisitor final : public VNVisitor {
                 }
             } else if (VN_IS(toDtp, QueueDType)) {
                 if (VN_IS(fromDtp, BasicDType)) {
-                    newp = new AstCvtPackedToArray {
-                        nodep->fileline(),
-                        nodep->fromp()->unlinkFrBack(),
-                        toDtp
-                    };
+                    newp = new AstCvtPackedToArray{nodep->fileline(),
+                                                   nodep->fromp()->unlinkFrBack(), toDtp};
                 } else if (VN_IS(fromDtp, QueueDType) || VN_IS(fromDtp, StreamDType)) {
-                    newp = new AstCvtArrayToArray {
-                        nodep->fileline(),
-                        nodep->fromp()->unlinkFrBack(),
-                        toDtp,
-                        false
-                    };
+                    newp = new AstCvtArrayToArray{nodep->fileline(),
+                                                  nodep->fromp()->unlinkFrBack(), toDtp, false};
                 }
             } else if (VN_IS(toDtp, ClassRefDType)) {
                 // Can just remove cast

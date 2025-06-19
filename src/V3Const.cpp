@@ -2294,21 +2294,22 @@ class ConstVisitor final : public VNVisitor {
             VL_DO_DANGLING(pushDeletep(streamp), streamp);
             // Further reduce, any of the nodes may have more reductions.
             return true;
-        } else if (m_doV && VN_IS(nodep->rhsp(), StreamL)) {         
+        } else if (m_doV && VN_IS(nodep->rhsp(), StreamL)) {
             AstStreamL* streamp = VN_AS(nodep->rhsp(), StreamL);
             AstNodeExpr* srcp = streamp->lhsp();
             AstNodeDType* const srcDTypep = srcp->dtypep()->skipRefp();
             AstNodeDType* const dstDTypep = nodep->lhsp()->dtypep()->skipRefp();
             if ((VN_IS(srcDTypep, QueueDType) || VN_IS(srcDTypep, DynArrayDType)
-                || VN_IS(srcDTypep, UnpackArrayDType))) {
+                 || VN_IS(srcDTypep, UnpackArrayDType))) {
                 if (VN_IS(dstDTypep, QueueDType) || VN_IS(dstDTypep, DynArrayDType)) {
                     streamp->unlinkFrBack();
-                    srcp = new AstCvtArrayToArray{srcp->fileline(), srcp->unlinkFrBack(), dstDTypep, true};
+                    srcp = new AstCvtArrayToArray{srcp->fileline(), srcp->unlinkFrBack(),
+                                                  dstDTypep, true};
                     nodep->rhsp(srcp);
                     VL_DO_DANGLING(pushDeletep(streamp), streamp);
                 } else {
-                    streamp->lhsp(
-                        new AstCvtArrayToPacked{srcp->fileline(), srcp->unlinkFrBack(), dstDTypep});
+                    streamp->lhsp(new AstCvtArrayToPacked{srcp->fileline(), srcp->unlinkFrBack(),
+                                                          dstDTypep});
                     streamp->dtypeFrom(dstDTypep);
                 }
             }

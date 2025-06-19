@@ -495,7 +495,7 @@ public:
             rhs = false;
             iterateAndNextConstNull(castp->fromp());
         } else if (const AstCvtArrayToArray* const castp
-                = VN_CAST(nodep->rhsp(), CvtArrayToArray)) {
+                   = VN_CAST(nodep->rhsp(), CvtArrayToArray)) {
             if (castp->reverse()) {
                 putns(castp, "VL_REVCOPY_Q");
             } else {

@@ -1133,7 +1133,8 @@ class AstCvtArrayToArray final : public AstNodeExpr {
     // @astgen op1 := fromp : AstNodeExpr
 public:
     AstCvtArrayToArray(FileLine* fl, AstNodeExpr* fromp, AstNodeDType* dtp, bool reverse)
-        : ASTGEN_SUPER_CvtArrayToArray(fl), m_reverse(reverse) {
+        : ASTGEN_SUPER_CvtArrayToArray(fl)
+        , m_reverse(reverse) {
         this->fromp(fromp);
         dtypeFrom(dtp);
     }
@@ -1142,6 +1143,7 @@ public:
     string emitC() override { V3ERROR_NA_RETURN(""); }
     bool cleanOut() const override { return true; }
     bool reverse() const { return m_reverse; }
+
 private:
     bool m_reverse;
 };
